@@ -29,7 +29,7 @@ function _rec_exclusive_group(vars::Vector{Symbol}, idx::Int)
     
     # Base case
     if idx == length(vars)
-        return vars[1]
+        return generate_indicator(vars, idx)
     end
 
     # Recursive case
