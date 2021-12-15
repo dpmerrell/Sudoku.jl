@@ -6,9 +6,11 @@ export generate_indicator, exclusive_group
 
 
 function generate_indicator(vars::Vector{Symbol}, idx::Int)
-    
-    atom = vars[1]
+   
+    # Determine whether this is the index 
     if idx == 1
+        atom = vars[1]
+    else
         atom = Expr(:call, :!, vars[1])
     end
 
