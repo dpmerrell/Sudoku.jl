@@ -2,7 +2,7 @@ module Sudoku
 
 using ROBDD
 
-export generate_indicator, exclusive_group 
+export generate_indicator, generate_exclusive_group 
 
 
 function generate_indicator(vars::Vector{Symbol}, idx::Int)
@@ -65,24 +65,30 @@ end
 
 function build_sudoku_expr()
 
-    exclusive_groups = []
+    exclusive_groups = Expr[]
     # Build entry-wise exclusive groups (89)
     for row=1:9
         for col=1:9
             vars = [to_symbol((row,col,k)) for k=1:9]
-            push!(exclusive_groups, generate_exclusive_group(vars)) 
+            push!(exclusive_groups, generate_exclusive_group(vars))
+        end
+    end 
 
     # Build row-wise exclusive groups (89)
     for row=1:9
         for k=1:9
             vars = [to_symbol((row,col,k)) for col=1:9]
             push!(exclusive_groups, generate_exclusive_group(vars)) 
+        end
+    end 
 
     # Build column-wise exclusive groups (89)
     for col=1:9
         for k=1:9
             vars = [to_symbol((row,col,k)) for row=1:9]
             push!(exclusive_groups, generate_exclusive_group(vars)) 
+        end
+    end 
 
 
     # Build sector-wise exclusive groups (89)
@@ -92,7 +98,10 @@ function build_sudoku_expr()
             for k=1:9
                 vars = [to_symbol((row,col,k)) for row in sectors[rs] for col in sectors[cs]]
                 push!(exclusive_groups, generate_exclusive_group(vars))
-    
+            end
+        end
+    end
+ 
     # Form the conjunct of all exclusive groups
     return big_conjunct(exclusive_groups)
 end
