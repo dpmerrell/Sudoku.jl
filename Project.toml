@@ -1,0 +1,7 @@
+name = "Sudoku"
+uuid = "c2b0c93c-cbb4-4e19-8dec-caa1f131d099"
+authors = ["dpmerrell <davidpmerrell@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+ROBDD = "ebc74b1a-095f-4b26-a973-469aa541d333"

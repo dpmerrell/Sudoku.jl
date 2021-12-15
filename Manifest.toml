@@ -1,0 +1,8 @@
+# This file is machine-generated - editing it directly is not advised
+
+[[ROBDD]]
+git-tree-sha1 = "82207549bf6627331fe94acb11ac11d25c05461a"
+repo-rev = "master"
+repo-url = "https://github.com/dpmerrell/ROBDD.jl"
+uuid = "ebc74b1a-095f-4b26-a973-469aa541d333"
+version = "0.1.0"
