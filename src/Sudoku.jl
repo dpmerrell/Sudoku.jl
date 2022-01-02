@@ -1,6 +1,6 @@
 module Sudoku
 
-using ROBDD
+using ROBDD, LRUCache
 
 export generate_indicator, generate_exclusive_group 
 
@@ -118,7 +118,7 @@ function build_sudoku_robdd()
     sudoku_vars = sudoku_variables()
 
     my_table = ROBDDTable(sudoku_vars)
-    start_idx = build_robdd(my_table, sudoku_expr)
+    start_idx = build_robdd(my_table, sudoku_expr; memo=LRU{Tuple{Function,Vararg{UInt32}},UInt32}(maxsize=80000000,by=sizeof))
 
     clean_table, clean_idx = clean_table(my_table, start_idx)
 
