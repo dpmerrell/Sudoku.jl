@@ -1,3 +1,2 @@
 [deps]
-ROBDD = "ebc74b1a-095f-4b26-a973-469aa541d333"
-Sudoku = "c2b0c93c-cbb4-4e19-8dec-caa1f131d099"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

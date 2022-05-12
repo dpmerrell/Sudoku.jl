@@ -1,14 +1,2 @@
 # This file is machine-generated - editing it directly is not advised
 
-[[LRUCache]]
-git-tree-sha1 = "d64a0aff6691612ab9fb0117b0995270871c5dfc"
-uuid = "8ac3fa9e-de4c-5943-b1dc-09c6b5f20637"
-version = "1.3.0"
-
-[[ROBDD]]
-deps = ["LRUCache"]
-git-tree-sha1 = "f36dbd5f18fe7e5e80262d86fbb3f92979483ebd"
-repo-rev = "master"
-repo-url = "../ROBDD.jl"
-uuid = "ebc74b1a-095f-4b26-a973-469aa541d333"
-version = "0.1.0"
