@@ -35,10 +35,20 @@ function feasible_values(idx::Tuple, table::Matrix{<:Integer})
 end
 
 
-
 function get_unknown_idx(table::Matrix)
     unknown_idx = findall(table .== 0)
     return map(Tuple, unknown_idx)
+end
+
+
+function get_quadrant_idx(idx::Tuple; N=9)
+
+    N_sqrt = Int(round(sqrt(N)))
+
+    start_i = div(idx[1]-1, N_sqrt)*N_sqrt
+    start_j = div(idx[2]-1, N_sqrt)*N_sqrt
+
+    return start_i:(start_i+N_sqrt), start_j:(start_j+N_sqrt)
 end
 
 
@@ -101,3 +111,55 @@ function is_valid_table(table::Matrix{<:Integer})
 
     return true
 end
+
+"""
+    Translate a sudoku table (matrix of integers)
+    to a sudoku cube (3-index bool tensor)
+"""
+function table_to_cube(sudoku_table::Matrix{UInt8})
+
+    M = size(sudoku_table,1)
+    result = zeros(Bool, M,M,M)
+
+    for i=1:M
+        for j=1:M
+            result[i,j,sudoku_table[i,j]] = true
+        end
+    end
+
+    return result
+end
+
+
+function cube_to_table(sudoku_cube::Array{Bool})
+
+    M = size(sudoku_cube, 1)
+    result = zeros(UInt8, M, M)
+
+    for i=1:M
+        for j=1:M
+            for k=1:M
+                if sudoku_cube[i,j,k]
+                    result[i,j] = UInt8(k)
+                    break
+                end
+            end
+        end
+    end
+
+    return result
+end
+
+# Some array-indexing helper functions
+function cube_to_flat(i,j,k; N=9)
+    return (i-1)*N*N + (j-1)*N + k
+end
+
+function flat_to_cube(n; N=9)
+    i_layer = div(n,N*N)+1
+    n -= (i_layer-1)*N*N
+    j_layer = div(n, N)+1
+    n -= (j_layer-1)*N
+    return i_layer, j_layer, n
+end
+
